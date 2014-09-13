@@ -7,6 +7,7 @@ extern crate collections;
 
 use docopt::FlagParser;
 use std::io::BufferedReader;
+use std::io::BufferedWriter;
 use std::io::File;
 use core::result::Result;
 use collections::string::String;
@@ -19,6 +20,7 @@ Usage: interleaver FILENAMES...
 ", )
 
 type BrType = BufferedReader<core::result::Result<std::io::fs::File,std::io::IoError>>;
+type BwType = BufferedWriter<core::result::Result<std::io::fs::File,std::io::IoError>>;
 
 fn main() {
   let args: Args = FlagParser::parse().unwrap_or_else(|e| e.exit());
@@ -26,13 +28,19 @@ fn main() {
   // The Args struct satisfies `Show`:
   println!("{}", args);
 
-
-  let paths_it = args.arg_FILENAMES.iter ().map (|n| Path::new(n.clone ()));
+  let file_names = args.arg_FILENAMES;
+  let paths_it = file_names.iter ().map (|n| Path::new(n.clone ()));
   let files_it = paths_it.map (|path| File::open(&path));
   let mut buffered_readers_it = files_it.map (|file| BufferedReader::new (file));
   let mut buffered_readers_vec : Vec<BrType> = buffered_readers_it.collect ();
 
+  let paths_out_it = range (0u, file_names.len ()).map (|i| Path::new (i.to_string()));
+  let files_out_it = paths_out_it.map (|path_out| File::open(&path_out));
+  let mut buffered_writers_it = files_out_it.map (|file_out| BufferedWriter::new (file_out));
+  let mut buffered_writers_vec : Vec<BwType> = buffered_writers_it.collect ();
+
   let mut done;
+  let mut i = 0;
 
   loop {
     done = true;
@@ -41,13 +49,18 @@ fn main() {
       match lines.next () {
         None => (),
         Some (line) => {
-          println! ("{}", line);
+          buffered_writers_vec.get_mut (i).write_str (line.unwrap ().as_slice ());
+          i = i + 1;
           done = false;
         }
       }
     }
     if done { break; }
   }
+
+
+
+
 
   // let line_readers_it = buffered_readers_vec.iter().map (|mut buffered_reader| { buffered_reader.read_to_string(); });
 
