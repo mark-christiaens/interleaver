@@ -8,8 +8,6 @@ extern crate collections;
 use docopt::FlagParser;
 use std::io::BufferedReader;
 use std::io::File;
-use std::io::Lines;
-use std::io::IoResult;
 use core::result::Result;
 use collections::string::String;
 use collections::vec::Vec;
@@ -18,7 +16,9 @@ docopt!(Args, "
 interleaver
 
 Usage: interleaver FILENAMES...
-")
+", )
+
+type BrType = BufferedReader<core::result::Result<std::io::fs::File,std::io::IoError>>;
 
 fn main() {
   let args: Args = FlagParser::parse().unwrap_or_else(|e| e.exit());
@@ -26,13 +26,34 @@ fn main() {
   // The Args struct satisfies `Show`:
   println!("{}", args);
 
+
   let paths_it = args.arg_FILENAMES.iter ().map (|n| Path::new(n.clone ()));
   let files_it = paths_it.map (|path| File::open(&path));
-  let mut readers_it = files_it.map (|file| BufferedReader::new (file));
-  let readers_vec : Vec<BufferedReader<core::result::Result<std::io::fs::File,std::io::IoError>>> = readers_it.collect ();
+  let mut buffered_readers_it = files_it.map (|file| BufferedReader::new (file));
+  let mut buffered_readers_vec : Vec<BrType> = buffered_readers_it.collect ();
+
+  let mut done;
+
+  loop {
+    done = true;
+    for buffered_reader in buffered_readers_vec.mut_iter () {
+      let mut lines = buffered_reader.lines ();
+      match lines.next () {
+        None => (),
+        Some (line) => {
+          println! ("{}", line);
+          done = false;
+        }
+      }
+    }
+    if done { break; }
+  }
+
+  // let line_readers_it = buffered_readers_vec.iter().map (|mut buffered_reader| { buffered_reader.read_to_string(); });
+
   // let line_iterators = readers.map (|mut reader| reader.lines ());
 
-  let c = args.arg_FILENAMES.len();
+  // let c = args.arg_FILENAMES.len();
 
   // let mut candidates : Vec<Option<IoResult<String>>> = Vec::new ();
 
