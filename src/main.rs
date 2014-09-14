@@ -42,11 +42,15 @@ fn main() {
     let mut buffered_readers_vec : Vec<BrType> = buffered_readers_it.collect ();
 
     let paths_out_it = range (0u, file_names.len ()).map (|i| Path::new (i.to_string()));
-    let files_out_it = paths_out_it.map (|path_out| File::open(&path_out));
-        // match res {
-        //     Ok(_)  => println!("Successfully opened"),
-        //     Err(e) => fail!("Could not open output file");
-        // };
+    let files_out_it = paths_out_it.map (|path_out| {
+        let res = File::create(&path_out);
+        match res {
+            Ok(_)  => println!("Successfully opened"),
+            Err(e) => fail!("Could not open output file: {}", e)
+        };
+        res
+    }
+    );
     let mut buffered_writers_it = files_out_it.map (|file_out| BufferedWriter::new (file_out) );
 
     let mut buffered_writers_vec : Vec<BwType> = buffered_writers_it.collect ();
@@ -69,7 +73,7 @@ fn main() {
                             done = false;
                         }
                         Err(e) => {
-                            let file_name = file_names.get (i);
+                            let ref file_name = file_names[i];
                             fail! ("Could not write to {}: {}", file_name, e);
                         }
                     }
