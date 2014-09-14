@@ -29,77 +29,127 @@ Options:
 type BrType = BufferedReader<core::result::Result<std::io::fs::File,std::io::IoError>>;
 type BwType = BufferedWriter<core::result::Result<std::io::fs::File,std::io::IoError>>;
 
+#[deriving(Show)]
+enum Month { Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec }
+
+fn string_to_month (s : &str) -> Option<Month> {
+  match s {
+    "Jan" => Some (Jan),
+    "Feb" => Some (Feb),
+    "Mar" => Some (Mar),
+    "Apr" => Some (Apr),
+    "May" => Some (May),
+    "Jun" => Some (Jun),
+    "Jul" => Some (Jul),
+    "Aug" => Some (Aug),
+    "Sep" => Some (Sep),
+    "Oct" => Some (Oct),
+    "Nov" => Some (Nov),
+    "Dec" => Some (Dec),
+    _     => None
+  }
+}
+
+#[deriving(Show)]
+struct TimedLine<'a> {
+  l       : &'a String,
+  month   : Month,
+  day     : u8,
+  hour    : u8,
+  minute  : u8,
+  second  : u8,
+  usecond : u32
+}
+
+impl <'a> TimedLine <'a> {
+  fn new (l : &'a String) -> TimedLine<'a> {
+    TimedLine {
+      l       : l,
+      month   : Jan,
+      day     : 1u8,
+      hour    : 1u8,
+      minute  : 1u8,
+      second  : 1u8,
+      usecond : 0u32
+    }
+  }
+}
+
 fn main() {
-    let args: Args = FlagParser::parse().unwrap_or_else(|e| e.exit());
+  let args: Args = FlagParser::parse().unwrap_or_else(|e| e.exit());
 
-    println!("Starting {}", args);
+  let s = String::from_str ("Sep  2 14:25:02 8993: (main|info): --- NODE STARTED ---");
+  let tl = TimedLine::new (&s);
+  println!("TimedLine: {}", tl);
 
-    let file_names = args.arg_file;
-    let file_count = file_names.len ();
-    let paths_it = file_names.iter ().map (|n| Path::new(n.clone ()));
-    let files_it = paths_it.map (|path| File::open(&path));
-    let mut buffered_readers_it = files_it.map (|file| BufferedReader::new (file));
-    let mut buffered_readers_vec : Vec<BrType> = buffered_readers_it.collect ();
+  println!("Starting {}", args);
 
-    let paths_out_it = range (0u, file_names.len ()).map (|i| Path::new (i.to_string()));
-    let files_out_it = paths_out_it.map (|path_out| {
-        let res = File::create(&path_out);
-        match res {
-            Ok(_)  => println!("Successfully opened"),
-            Err(e) => fail!("Could not open output file: {}", e)
-        };
-        res
-    }
-    );
-    let mut buffered_writers_it = files_out_it.map (|file_out| BufferedWriter::new (file_out) );
+  let file_names = args.arg_file;
+  let file_count = file_names.len ();
+  let paths_it = file_names.iter ().map (|n| Path::new(n.clone ()));
+  let files_it = paths_it.map (|path| File::open(&path));
+  let mut buffered_readers_it = files_it.map (|file| BufferedReader::new (file));
+  let mut buffered_readers_vec : Vec<BrType> = buffered_readers_it.collect ();
 
-    let mut buffered_writers_vec : Vec<BwType> = buffered_writers_it.collect ();
+  let paths_out_it = range (0u, file_names.len ()).map (|i| Path::new (i.to_string()));
+  let files_out_it = paths_out_it.map (|path_out| {
+    let res = File::create(&path_out);
+    match res {
+      Ok(_)  => println!("Successfully opened"),
+      Err(e) => fail!("Could not open output file: {}", e)
+    };
+    res
+  }
+  );
+  let mut buffered_writers_it = files_out_it.map (|file_out| BufferedWriter::new (file_out) );
 
-    let mut done;
-    let mut i = 0;
+  let mut buffered_writers_vec : Vec<BwType> = buffered_writers_it.collect ();
 
-    loop {
-        done = true;
-        for buffered_reader in buffered_readers_vec.mut_iter () {
-            let mut lines = buffered_reader.lines ();
-            match lines.next () {
-                None => (),
-                Some (line) => {
-                    let target = buffered_writers_vec.get_mut (i);
-                    let res = target.write_str (line.unwrap ().as_slice ());
-                    match res {
-                        Ok(_) => {
-                            i = (i + 1) % file_count;
-                            done = false;
-                        }
-                        Err(e) => {
-                            let ref file_name = file_names[i];
-                            fail! ("Could not write to {}: {}", file_name, e);
-                        }
-                    }
-                }
+  let mut done;
+  let mut i = 0;
+
+  loop {
+    done = true;
+    for buffered_reader in buffered_readers_vec.mut_iter () {
+      let mut lines = buffered_reader.lines ();
+      match lines.next () {
+        None => (),
+        Some (line) => {
+          let target = buffered_writers_vec.get_mut (i);
+          let res = target.write_str (line.unwrap ().as_slice ());
+          match res {
+            Ok(_) => {
+              i = (i + 1) % file_count;
+              done = false;
             }
+            Err(e) => {
+              let ref file_name = file_names[i];
+              fail! ("Could not write to {}: {}", file_name, e);
+            }
+          }
         }
-        if done { break; }
+      }
     }
+    if done { break; }
+  }
 
-    // let line_readers_it = buffered_readers_vec.iter().map (|mut buffered_reader| { buffered_reader.read_to_string(); });
+  // let line_readers_it = buffered_readers_vec.iter().map (|mut buffered_reader| { buffered_reader.read_to_string(); });
 
-    // let line_iterators = readers.map (|mut reader| reader.lines ());
+  // let line_iterators = readers.map (|mut reader| reader.lines ());
 
-    // let c = args.arg_FILENAMES.len();
+  // let c = args.arg_FILENAMES.len();
 
-    // let mut candidates : Vec<Option<IoResult<String>>> = Vec::new ();
+  // let mut candidates : Vec<Option<IoResult<String>>> = Vec::new ();
 
-    // for line_iterator in line_iterators.iter () {
-    //   // let line = line_iterator.next ();
-    //   // candidates.push (line);
-    // }
+  // for line_iterator in line_iterators.iter () {
+  //   // let line = line_iterator.next ();
+  //   // candidates.push (line);
+  // }
 
-    // let path = Path::new("p054_poker.txt");
+  // let path = Path::new("p054_poker.txt");
 
-    // let mut file = BufferedReader::new(File::open(&path));
-    // for line in file.lines() {
-    //   let l = line.unwrap ();
-    // }
+  // let mut file = BufferedReader::new(File::open(&path));
+  // for line in file.lines() {
+  //   let l = line.unwrap ();
+  // }
 }
