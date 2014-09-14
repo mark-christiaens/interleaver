@@ -13,10 +13,17 @@ use core::result::Result;
 use collections::string::String;
 use collections::vec::Vec;
 
-docopt!(Args, "
-interleaver
+// Interleaver takes N files (e.g., i_1.txt ... i_N.txt) and transforms them into N output files
+// named o_1.txt ... o_N.txt.  The lines of the input files must be prefixed with time stamps.  The
+// output files contain the same content as the input files but only one file is allowed to make
+// progress on a given line.  The other files are empty.
 
-Usage: interleaver FILENAMES...
+docopt!(Args, "
+Usage:
+  interleaver <file>...
+
+Options:
+  -h, --help    Show this screen.
 ", )
 
 type BrType = BufferedReader<core::result::Result<std::io::fs::File,std::io::IoError>>;
@@ -28,7 +35,7 @@ fn main() {
   // The Args struct satisfies `Show`:
   println!("{}", args);
 
-  let file_names = args.arg_FILENAMES;
+  let file_names = args.arg_file;
   let paths_it = file_names.iter ().map (|n| Path::new(n.clone ()));
   let files_it = paths_it.map (|path| File::open(&path));
   let mut buffered_readers_it = files_it.map (|file| BufferedReader::new (file));
