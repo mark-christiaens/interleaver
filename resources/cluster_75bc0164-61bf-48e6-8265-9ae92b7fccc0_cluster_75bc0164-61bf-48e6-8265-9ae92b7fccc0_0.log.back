@@ -1,0 +1,158 @@
+Sep  2 14:25:02 8993: (main|info): --- NODE STARTED ---
+Sep  2 14:25:02 8996: (main|info): git_revision: a86ff70ababf616043e836d713703408978dfd0e 
+Sep  2 14:25:02 8996: (main|info): compile_time: 28/08/2014 09:43:30 UTC 
+Sep  2 14:25:02 8997: (main|info): version: 1.6.14
+Sep  2 14:25:02 8998: (main|info): NOFILE: 4096
+Sep  2 14:25:02 8999: (main|info): tlogEntriesPerFile: 100000
+Sep  2 14:25:02 9000: (main|info): cluster_cfg={ node_cfgs=[ {node_name="cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0_1"; ips=[127.0.0.1;]; client_port=7091; messaging_port=10011; home="/opt/qbase3/var/db/cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0/cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0_1"; tlog_dir="/opt/qbase3/var/db/cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0/cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0_1"; log_dir="/opt/qbase3/var/log/cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0/cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0_1"; tlf_dir="/opt/qbase3/var/db/cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0/cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0_1"; head_dir=/opt/qbase3/var/db/cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0/cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0_1; log_level:"info"; log_config=None; batched_transaction_config=None; lease_period=10; master="Elected"; is_laggy=false; is_learner=false; targets=[]; use_compression=true; fsync=false; is_test=false; reporting=300; head_copy_throttling=0.000000},{node_name="cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0_2"; ips=[127.0.0.1;]; client_port=7092; messaging_port=10012; home="/opt/qbase3/var/db/cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0/cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0_2"; tlog_dir="/opt/qbase3/var/db/cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0/cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0_2"; log_dir="/opt/qbase3/var/log/cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0/cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0_2"; tlf_dir="/opt/qbase3/var/db/cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0/cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0_2"; head_dir=/opt/qbase3/var/db/cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0/cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0_2; log_level:"info"; log_config=None; batched_transaction_config=None; lease_period=10; master="Elected"; is_laggy=false; is_learner=false; targets=[]; use_compression=true; fsync=false; is_test=false; reporting=300; head_copy_throttling=0.000000},{node_name="cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0_0"; ips=[127.0.0.1;]; client_port=7090; messaging_port=10010; home="/opt/qbase3/var/db/cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0/cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0_0"; tlog_dir="/opt/qbase3/var/db/cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0/cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0_0"; log_dir="/opt/qbase3/var/log/cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0/cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0_0"; tlf_dir="/opt/qbase3/var/db/cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0/cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0_0"; head_dir=/opt/qbase3/var/db/cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0/cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0_0; log_level:"info"; log_config=None; batched_transaction_config=None; lease_period=10; master="Elected"; is_laggy=false; is_learner=false; targets=[]; use_compression=true; fsync=false; is_test=false; reporting=300; head_copy_throttling=0.000000},; nursery_cfg=None; _master=Elected; _lease_period=10; cluster_id=cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0; plugins=; overwrite_tlog_entries=None; max_value_size=8388608; max_buffer_size=33554432; client_buffer_capacity=32 }
+Sep  2 14:25:02 9001: (main|info): Batched_store.max_entries = 100
+Sep  2 14:25:02 9001: (main|info): Batched_store.max_size = 100000
+Sep  2 14:25:02 9002: (main|info): Cluster not part of nursery.
+Sep  2 14:25:02 9002: (main|info): cfg = {node_name="cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0_0"; ips=[127.0.0.1;]; client_port=7090; messaging_port=10010; home="/opt/qbase3/var/db/cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0/cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0_0"; tlog_dir="/opt/qbase3/var/db/cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0/cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0_0"; log_dir="/opt/qbase3/var/log/cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0/cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0_0"; tlf_dir="/opt/qbase3/var/db/cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0/cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0_0"; head_dir=/opt/qbase3/var/db/cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0/cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0_0; log_level:"info"; log_config=None; batched_transaction_config=None; lease_period=10; master="Elected"; is_laggy=false; is_learner=false; targets=[]; use_compression=true; fsync=false; is_test=false; reporting=300; head_copy_throttling=0.000000}
+Sep  2 14:25:02 9003: (main|info): other: cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0_1
+Sep  2 14:25:02 9003: (main|info): other: cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0_2
+Sep  2 14:25:02 9004: (main|info): quorum_function gives 2 for 3
+Sep  2 14:25:02 9004: (main|info): DAEMONIZATION=true
+Sep  2 14:25:02 9005: (main|info): File at /opt/qbase3/var/db/cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0/cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0_0/head.db does not exist
+Sep  2 14:25:02 9009: (main|info): Taking job from compression queue...
+Sep  2 14:25:02 9009: (main|info): Creating local store at /opt/qbase3/var/db/cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0/cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0_0/cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0_0.db
+Sep  2 14:25:02 9014: (main|info): verify_n_catchup_store; too_far_i=0 current_i=0 si_o:None
+Sep  2 14:25:02 9066: (paxos|info): cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0_0: election_suggest: n=0 i=0 None
+Sep  2 14:25:02 9067: (tcp_messaging|info): tcp_messaging (127.0.0.1,10010): run
+Sep  2 14:25:02 9068: (tcp_messaging|info): establishing connection to (127.0.0.1,10011) (timeout = 5.000000)
+Sep  2 14:25:02 9069: (tcp_messaging|info): establishing connection to (127.0.0.1,10012) (timeout = 5.000000)
+Sep  2 14:25:02 9071: (main|info): __open_connection to (127.0.0.1,10011) failed: Unix.Unix_error(Unix.ECONNREFUSED, "connect", "")
+Sep  2 14:25:02 9072: (main|info): __open_connection to (127.0.0.1,10012) failed: Unix.Unix_error(Unix.ECONNREFUSED, "connect", "")
+Sep  2 14:25:02 9298: (main|info): messaging_127.0.0.1:session=0 connection=messaging_127.0.0.1_1 socket_address=ADDR_INET 127.0.0.1,55423 file_descriptor_inode=41610323
+Sep  2 14:25:02 9302: (paxos|info): cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0_0: NAK:other node is behind: i':0 nak_max:0
+Sep  2 14:25:02 9302: (paxos|info): cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0_0: handle_prepare replying with "Nak (0,(0,0))"
+Sep  2 14:25:02 9561: (main|info): messaging_127.0.0.1:session=1 connection=messaging_127.0.0.1_2 socket_address=ADDR_INET 127.0.0.1,55425 file_descriptor_inode=41610336
+Sep  2 14:25:02 9565: (paxos|info): cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0_0: NAK:other node is behind: i':0 nak_max:0
+Sep  2 14:25:02 9566: (paxos|info): cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0_0: handle_prepare replying with "Nak (0,(0,0))"
+Sep  2 14:25:02 9943: (main|info): 127.0.0.1:client_service:session=0 connection=127.0.0.1:client_service_1 socket_address=ADDR_INET 127.0.0.1,37596 file_descriptor_inode=41610354
+Sep  2 14:25:02 9948: (main|info): exiting session (0) connection=127.0.0.1:client_service_1: End_of_file
+Sep  2 14:25:03 9081: (tcp_messaging|info): establishing connection to (127.0.0.1,10011) (timeout = 5.000000)
+Sep  2 14:25:03 9090: (tcp_messaging|info): establishing connection to (127.0.0.1,10012) (timeout = 5.000000)
+Sep  2 14:25:03 9100: (main|info): __open_connection SUCCEEDED (fd=11) (127.0.0.1,42046) (127.0.0.1,10012)
+Sep  2 14:25:03 9107: (main|info): __open_connection SUCCEEDED (fd=10) (127.0.0.1,51224) (127.0.0.1,10011)
+Sep  2 14:25:03 9133: (paxos|info): cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0_0: election_suggest: n=6 i=0 None
+Sep  2 14:25:03 9135: (paxos|info): cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0_0: NAK:other node is behind: i':0 nak_max:0
+Sep  2 14:25:03 9136: (paxos|info): cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0_0: handle_prepare replying with "Nak (3,(6,0))"
+Sep  2 14:25:03 9138: (paxos|info): cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0_0: NAK:other node is behind: i':0 nak_max:0
+Sep  2 14:25:03 9139: (paxos|info): cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0_0: handle_prepare replying with "Nak (3,(6,0))"
+Sep  2 14:25:03 9160: (paxos|info): cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0_0: election_suggest: n=15 i=0 None
+Sep  2 14:25:03 9164: (paxos|info): cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0_0: NAK:other node is behind: i':0 nak_max:0
+Sep  2 14:25:03 9165: (paxos|info): cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0_0: handle_prepare replying with "Nak (11,(15,0))"
+Sep  2 14:25:03 9191: (paxos|info): cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0_0: NAK:other node is behind: i':0 nak_max:0
+Sep  2 14:25:03 9192: (paxos|info): cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0_0: handle_prepare replying with "Nak (11,(15,0))"
+Sep  2 14:25:03 9195: (paxos|info): cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0_0: NAK:other node is behind: i':0 nak_max:0
+Sep  2 14:25:03 9197: (paxos|info): cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0_0: handle_prepare replying with "Nak (11,(15,0))"
+Sep  2 14:25:03 9203: (paxos|info): cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0_0: election_suggest: n=22 i=0 None
+Sep  2 14:25:03 9206: (paxos|info): cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0_0: NAK:other node is behind: i':0 nak_max:0
+Sep  2 14:25:03 9235: (paxos|info): cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0_0: handle_prepare replying with "Nak (19,(22,0))"
+Sep  2 14:25:03 9241: (paxos|info): cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0_0: NAK:other node is behind: i':0 nak_max:0
+Sep  2 14:25:03 9241: (paxos|info): cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0_0: handle_prepare replying with "Nak (19,(22,0))"
+Sep  2 14:25:03 9243: (paxos|info): cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0_0: NAK:other node is behind: i':0 nak_max:0
+Sep  2 14:25:03 9244: (paxos|info): cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0_0: handle_prepare replying with "Nak (19,(22,0))"
+Sep  2 14:25:03 9245: (paxos|info): cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0_0: NAK:other node is behind: i':0 nak_max:0
+Sep  2 14:25:03 9246: (paxos|info): cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0_0: handle_prepare replying with "Nak (19,(22,0))"
+Sep  2 14:25:03 9247: (paxos|info): cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0_0: NAK:other node is behind: i':0 nak_max:0
+Sep  2 14:25:03 9248: (paxos|info): cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0_0: handle_prepare replying with "Nak (19,(22,0))"
+Sep  2 14:25:03 9273: (paxos|info): cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0_0: promises_check_done: consensus on 0
+Sep  2 14:25:03 9294: (paxos|info): cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0_0: NAK:other node is behind: i':0 nak_max:0
+Sep  2 14:25:03 9294: (paxos|info): cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0_0: handle_prepare replying with "Nak (19,(22,0))"
+Sep  2 14:25:03 9295: (paxos|info): cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0_0: handle_prepare: starting election timer
+Sep  2 14:25:03 9296: (paxos|info): cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0_0: handle_prepare replying with "Promise(27,0,Some (Vm (cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0_0,1409660703.927331)))"
+Sep  2 14:25:03 9299: (paxos|info): cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0_0: NAK:other node is behind: i':0 nak_max:0
+Sep  2 14:25:03 9300: (paxos|info): cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0_0: handle_prepare replying with "Nak (27,(27,0))"
+Sep  2 14:25:03 9301: (paxos|info): cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0_0: NAK:other node is behind: i':0 nak_max:0
+Sep  2 14:25:03 9302: (paxos|info): cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0_0: handle_prepare replying with "Nak (27,(27,0))"
+Sep  2 14:25:03 9303: (paxos|info): cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0_0: NAK:other node is behind: i':0 nak_max:0
+Sep  2 14:25:03 9303: (paxos|info): cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0_0: handle_prepare replying with "Nak (27,(27,0))"
+Sep  2 14:25:03 9320: (paxos|info): cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0_0: NAK:other node is behind: i':0 nak_max:0
+Sep  2 14:25:03 9322: (paxos|info): cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0_0: handle_prepare replying with "Nak (27,(27,0))"
+Sep  2 14:25:03 9323: (paxos|info): cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0_0: NAK:other node is behind: i':0 nak_max:0
+Sep  2 14:25:03 9324: (paxos|info): cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0_0: handle_prepare replying with "Nak (27,(27,0))"
+Sep  2 14:25:03 9326: (paxos|info): cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0_0: NAK:other node is behind: i':0 nak_max:0
+Sep  2 14:25:03 9327: (paxos|info): cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0_0: handle_prepare replying with "Nak (27,(27,0))"
+Sep  2 14:25:03 9978: (main|info): 127.0.0.1:client_service:session=0 connection=127.0.0.1:client_service_2 socket_address=ADDR_INET 127.0.0.1,37602 file_descriptor_inode=41610370
+Sep  2 14:25:04 0001: (main|info): exiting session (0) connection=127.0.0.1:client_service_2: End_of_file
+Sep  2 14:25:04 0034: (main|info): 127.0.0.1:client_service:session=0 connection=127.0.0.1:client_service_3 socket_address=ADDR_INET 127.0.0.1,37603 file_descriptor_inode=41610375
+Sep  2 14:25:04 0041: (main|info): exiting session (0) connection=127.0.0.1:client_service_3: Common.XException(4, "None")
+Sep  2 14:25:06 0085: (main|info): 127.0.0.1:client_service:session=0 connection=127.0.0.1:client_service_4 socket_address=ADDR_INET 127.0.0.1,37606 file_descriptor_inode=41610384
+Sep  2 14:25:06 0095: (main|info): exiting session (0) connection=127.0.0.1:client_service_4: End_of_file
+Sep  2 14:25:06 0140: (main|info): 127.0.0.1:client_service:session=0 connection=127.0.0.1:client_service_5 socket_address=ADDR_INET 127.0.0.1,37607 file_descriptor_inode=41610387
+Sep  2 14:25:06 0144: (main|info): exiting session (0) connection=127.0.0.1:client_service_5: Common.XException(4, "None")
+Sep  2 14:25:10 0205: (main|info): 127.0.0.1:client_service:session=0 connection=127.0.0.1:client_service_6 socket_address=ADDR_INET 127.0.0.1,37610 file_descriptor_inode=41610397
+Sep  2 14:25:10 0214: (main|info): exiting session (0) connection=127.0.0.1:client_service_6: End_of_file
+Sep  2 14:25:10 0256: (main|info): 127.0.0.1:client_service:session=0 connection=127.0.0.1:client_service_7 socket_address=ADDR_INET 127.0.0.1,37611 file_descriptor_inode=41610400
+Sep  2 14:25:10 0261: (main|info): exiting session (0) connection=127.0.0.1:client_service_7: Common.XException(4, "None")
+Sep  2 14:25:15 6432: (paxos|info): cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0_0: election_suggest: n=28 i=0 Some _
+Sep  2 14:25:15 6460: (main|info): CATCHUP start: I'm @ 0 and cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0_2 is more recent
+Sep  2 14:25:15 6461: (main|info): catchup_tlog 0
+Sep  2 14:25:15 6462: (main|info): getting last_entries from cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0_2
+Sep  2 14:25:15 6493: (main|info): remote_nodestream :: last_seen = Some ("0")
+Sep  2 14:25:15 6494: (main|info): loop_parts done
+Sep  2 14:25:15 6496: (main|info): catchup_tlog completed
+Sep  2 14:25:15 6497: (main|info): CATCHUP phase 1 done (until_i = 0); now the store
+Sep  2 14:25:15 6497: (main|info): replaying log to store
+Sep  2 14:25:15 6500: (main|info): Replaying tlog file: 000.tlog (1/1)
+Sep  2 14:25:15 6502: (main|info): Some {filename="000.tlog";mapping=(0,158)::(0,79)::(0,0)} => jump to 158
+Sep  2 14:25:15 6504: (main|info): Completed replay of 000.tlog, took 0.000000 seconds, 0 to go
+Sep  2 14:25:15 6505: (main|info): catchup_store completed, store is @ Some ("0")
+Sep  2 14:25:15 6506: (main|info): CATCHUP end
+Sep  2 14:25:18 0340: (main|info): 127.0.0.1:client_service:session=0 connection=127.0.0.1:client_service_8 socket_address=ADDR_INET 127.0.0.1,37615 file_descriptor_inode=41610412
+Sep  2 14:25:18 0345: (main|info): exiting session (0) connection=127.0.0.1:client_service_8: End_of_file
+Sep  2 14:25:20 6794: (paxos|info): cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0_0: handle_prepare: starting election timer
+Sep  2 14:25:20 6796: (paxos|info): cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0_0: handle_prepare replying with "Promise(32,1,None)"
+Sep  2 14:25:20 6844: (main|info): cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0_2 is master
+Sep  2 14:25:20 6852: (paxos|info): cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0_0: NAK:other node is behind: i':0 nak_max:2
+Sep  2 14:25:20 6853: (paxos|info): cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0_0: handle_prepare replying with "Nak (-2,(32,2))"
+Sep  2 14:25:38 8818: (main|info): got TERM | INT
+Sep  2 14:25:38 8819: (main|info): All logging set to debug level after TERM/INT
+Sep  2 14:25:38 8820: (paxos|debug): cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0_0: ZYX Lwt.Canceled
+Sep  2 14:25:38 8820: (paxos|debug): cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0_0: FSM BAILED (run_election) due to uncaught exception Lwt.Canceled
+Sep  2 14:25:38 8824: (main|fatal): Exception in fsm thread: Lwt.Canceled
+Sep  2 14:25:38 8824: (main|debug): closing listening socket
+Sep  2 14:25:38 8825: (main|debug): closed listening socket
+Sep  2 14:25:38 8826: (main|info): closing client thread fd messaging_127.0.0.1_2
+Sep  2 14:25:38 8826: (tcp_messaging|info): going to drop outgoing connection as well: Unix.Unix_error(Unix.EBADF, "check_descriptor", "")
+Sep  2 14:25:38 8827: (tcp_messaging|debug): _drop_connection
+Sep  2 14:25:38 8827: (tcp_messaging|debug): found connection, closing it
+Sep  2 14:25:38 8832: (tcp_messaging|warning): exception while closing, too little too late: Unix.Unix_error(Unix.EBADF, "check_descriptor", "")
+Sep  2 14:25:38 8833: (main|info): exiting session (1) connection=messaging_127.0.0.1_2: Unix.Unix_error(Unix.EBADF, "check_descriptor", "")
+Sep  2 14:25:38 8834: (main|info): Exception on closing of socket (connection=messaging_127.0.0.1_2): Unix.Unix_error(Unix.EBADF, "check_descriptor", "")
+Sep  2 14:25:38 8835: (main|debug): Exception while closing client fd messaging_127.0.0.1_2: Unix.Unix_error(Unix.EBADF, "check_descriptor", "")
+Sep  2 14:25:38 8836: (main|info): closed client thread fd messaging_127.0.0.1_2
+Sep  2 14:25:38 8837: (main|info): closing client thread fd messaging_127.0.0.1_1
+Sep  2 14:25:38 8837: (tcp_messaging|info): going to drop outgoing connection as well: Unix.Unix_error(Unix.EBADF, "check_descriptor", "")
+Sep  2 14:25:38 8838: (tcp_messaging|debug): _drop_connection
+Sep  2 14:25:38 8838: (tcp_messaging|debug): found connection, closing it
+Sep  2 14:25:38 8843: (tcp_messaging|warning): exception while closing, too little too late: Unix.Unix_error(Unix.EBADF, "check_descriptor", "")
+Sep  2 14:25:38 8844: (main|info): exiting session (0) connection=messaging_127.0.0.1_1: Unix.Unix_error(Unix.EBADF, "check_descriptor", "")
+Sep  2 14:25:38 8844: (main|info): Exception on closing of socket (connection=messaging_127.0.0.1_1): Unix.Unix_error(Unix.EBADF, "check_descriptor", "")
+Sep  2 14:25:38 8845: (main|debug): Exception while closing client fd messaging_127.0.0.1_1: Unix.Unix_error(Unix.EBADF, "check_descriptor", "")
+Sep  2 14:25:38 8846: (main|info): closed client thread fd messaging_127.0.0.1_1
+Sep  2 14:25:38 8846: (main|info): waiting for 0 client_threads
+Sep  2 14:25:38 8847: (main|info): shutting down server on port 10010
+Sep  2 14:25:38 8848: (main|fatal): Exception in messaging thread: Lwt.Canceled
+Sep  2 14:25:38 8848: (main|debug): closing listening socket
+Sep  2 14:25:38 8849: (main|debug): closed listening socket
+Sep  2 14:25:38 8850: (main|info): waiting for 0 client_threads
+Sep  2 14:25:38 8850: (main|info): shutting down server on port 7090
+Sep  2 14:25:38 8851: (main|info): waiting for fsm and messaging thread to finish
+Sep  2 14:25:38 8851: (main|info): messaging thread finished
+Sep  2 14:25:38 8851: (main|info): fsm thread finished
+Sep  2 14:25:38 8852: (main|info): Closing store (0s)
+Sep  2 14:25:38 8853: (main|debug): closing store...
+Sep  2 14:25:38 8880: (main|info): local_store "/opt/qbase3/var/db/cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0/cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0_0/cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0_0.db" :: closed  () 
+Sep  2 14:25:38 8880: (main|debug): closed store
+Sep  2 14:25:38 8881: (main|fatal): >>> Closing the store @ "/opt/qbase3/var/db/cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0/cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0_0/cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0_0.db" succeeded: everything seems OK <<<
+Sep  2 14:25:38 8881: (main|info): Closing tlog (0s)
+Sep  2 14:25:38 8882: (main|debug): tlc2::close()
+Sep  2 14:25:38 8882: (main|debug): Cancelling compression thread
+Sep  2 14:25:38 8883: (main|info): compression thread was terminated: Lwt.Canceled
+Sep  2 14:25:38 8883: (main|debug): tlc2::closes () (part2)
+Sep  2 14:25:38 8884: (main|debug): wrote "Some (\"closed:cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0_0\")" marker @i=8 for "cluster_75bc0164-61bf-48e6-8265-9ae92b7fccc0_0"
+Sep  2 14:25:38 8885: (main|info): closed 000.tlog
+Sep  2 14:25:38 8885: (main|info): Completed shutdown
