@@ -4,6 +4,8 @@ extern crate serialize;
 extern crate docopt;
 extern crate core;
 extern crate collections;
+extern crate regex;
+#[phase(plugin)] extern crate regex_macros;
 
 use docopt::FlagParser;
 use std::io::BufferedReader;
@@ -63,16 +65,28 @@ struct TimedLine {
 }
 
 impl TimedLine {
-  fn new (l : &String) -> TimedLine {
+  fn new (l : &String, target : uint) -> TimedLine {
+    let re = regex! (r"^(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) +(\d+) (\d+):(\d+):(\d+) (\d+):.*$");
+    let caps = match re.captures (l.as_slice()) {
+      None => fail! ("Could not analyze line: \"{}\"", l),
+      Some (caps) => caps
+    };
+    let (month, day, hour, minute, second, usecond) =
+      match (string_to_month (caps.at(1)), from_str::<u8>(caps.at(2)), from_str::<u8> (caps.at(3)), from_str::<u8> (caps.at(4)), from_str::<u8> (caps.at(5)), from_str::<u32> (caps.at(6))
+      ) {
+        (Some (month), Some (day), Some (hour), Some (minute), Some (second), Some (usecond)) => (month, day, hour, minute, second, usecond*100),
+        _ => fail! ("Could not extract fields from line: \"{}\"", l)
+      };
+
     TimedLine {
       l       : l.clone (),
-      month   : Jan,
-      day     : 1u8,
-      hour    : 1u8,
-      minute  : 1u8,
-      second  : 1u8,
-      usecond : 0u32,
-      target  : 0u
+      month   : month,
+      day     : day,
+      hour    : hour,
+      minute  : minute,
+      second  : second,
+      usecond : usecond,
+      target  : target
     }
   }
 }
@@ -112,9 +126,9 @@ impl PartialOrd for TimedLine {
 fn main() {
   let args: Args = FlagParser::parse().unwrap_or_else(|e| e.exit());
 
-  // let s = String::from_str ("Sep  2 14:25:02 8993: (main|info): --- NODE STARTED ---");
-  // let tl = TimedLine::new (&s);
-  // println!("TimedLine: {}", tl);
+  let s = String::from_str ("Sep  2 14:25:02 8993: (main|info): --- NODE STARTED ---");
+  let tl = TimedLine::new (&s, 5u);
+  println!("TimedLine: {}", tl);
 
   println!("Starting {}", args);
 
