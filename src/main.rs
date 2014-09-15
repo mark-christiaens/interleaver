@@ -29,7 +29,7 @@ Options:
 type BrType = BufferedReader<core::result::Result<std::io::fs::File,std::io::IoError>>;
 type BwType = BufferedWriter<core::result::Result<std::io::fs::File,std::io::IoError>>;
 
-#[deriving(Show)]
+#[deriving(Show,PartialEq,PartialOrd,Eq,Ord)]
 enum Month { Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec }
 
 fn string_to_month (s : &str) -> Option<Month> {
@@ -50,37 +50,71 @@ fn string_to_month (s : &str) -> Option<Month> {
   }
 }
 
-#[deriving(Show)]
-struct TimedLine<'a> {
-  l       : &'a String,
+#[deriving(Show,PartialEq,Eq)]
+struct TimedLine {
+  l       : String,
   month   : Month,
   day     : u8,
   hour    : u8,
   minute  : u8,
   second  : u8,
-  usecond : u32
+  usecond : u32,
+  target  : uint
 }
 
-impl <'a> TimedLine <'a> {
-  fn new (l : &'a String) -> TimedLine<'a> {
+impl TimedLine {
+  fn new (l : &String) -> TimedLine {
     TimedLine {
-      l       : l,
+      l       : l.clone (),
       month   : Jan,
       day     : 1u8,
       hour    : 1u8,
       minute  : 1u8,
       second  : 1u8,
-      usecond : 0u32
+      usecond : 0u32,
+      target  : 0u
     }
+  }
+}
+
+impl Ord for TimedLine {
+  fn cmp(&self, other: &TimedLine) -> Ordering {
+    let month_cmp = self.month.cmp (&other.month);
+    if month_cmp == Equal {
+      let day_cmp = self.day.cmp (&other.day);
+      if day_cmp == Equal {
+        let hour_cmp = self.hour.cmp (&other.hour);
+        if hour_cmp == Equal {
+          let minute_cmp = self.minute.cmp (&other.minute);
+          if minute_cmp == Equal {
+            let second_cmp = self.second.cmp (&other.second);
+            if second_cmp == Equal {
+              self.usecond.cmp (&other.usecond)
+            }
+            else { second_cmp }
+          }
+          else { minute_cmp }
+        }
+        else { hour_cmp }
+      }
+      else { day_cmp }
+    }
+    else { month_cmp }
+  }
+}
+
+impl PartialOrd for TimedLine {
+  fn partial_cmp(&self, other: &TimedLine) -> Option<Ordering> {
+    Some (self.cmp (other))
   }
 }
 
 fn main() {
   let args: Args = FlagParser::parse().unwrap_or_else(|e| e.exit());
 
-  let s = String::from_str ("Sep  2 14:25:02 8993: (main|info): --- NODE STARTED ---");
-  let tl = TimedLine::new (&s);
-  println!("TimedLine: {}", tl);
+  // let s = String::from_str ("Sep  2 14:25:02 8993: (main|info): --- NODE STARTED ---");
+  // let tl = TimedLine::new (&s);
+  // println!("TimedLine: {}", tl);
 
   println!("Starting {}", args);
 
