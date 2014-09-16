@@ -14,6 +14,7 @@ use std::io::File;
 use core::result::Result;
 use collections::string::String;
 use collections::vec::Vec;
+use collections::PriorityQueue;
 
 // Interleaver takes N files (e.g., i_1.txt ... i_N.txt) and transforms them into N output files
 // named o_1.txt ... o_N.txt.  The lines of the input files must be prefixed with time stamps.  The
@@ -123,6 +124,53 @@ impl PartialOrd for TimedLine {
   }
 }
 
+struct TimedLineQueue<'a> {
+  q : PriorityQueue<TimedLine>,
+  readers : &'a mut Vec<BrType>
+}
+
+impl<'a> TimedLineQueue<'a> {
+  fn fill_que (&mut self, target : uint) {
+    let mut reader = self.readers.get_mut (target);
+    let mut lines = reader.lines ();
+    let line_opt = lines.next ();
+    match line_opt {
+      Some (line) => {
+        let timed_line = TimedLine::new (&line.unwrap(), target);
+        self.q.push (timed_line);
+      }
+      None => ()
+    }
+  }
+
+  fn new (readers : & 'a mut Vec<BrType>) -> TimedLineQueue {
+    let mut res = TimedLineQueue {
+      q : PriorityQueue::new (),
+      readers : readers
+    };
+
+    for (i, _) in res.readers.mut_iter().enumerate () {
+      res.fill_que(i);
+    }
+
+    res
+  }
+}
+
+impl<'a> Iterator<TimedLine> for TimedLineQueue<'a> {
+  fn next (&mut self) -> Option<TimedLine> {
+    let timed_line_opt = self.q.pop ();
+    match timed_line_opt {
+      None => (),
+      Some (ref timed_line) => {
+        self.fill_que(timed_line.target);
+      }
+    }
+
+    timed_line_opt
+  }
+}
+
 fn main() {
   let args: Args = FlagParser::parse().unwrap_or_else(|e| e.exit());
 
@@ -180,6 +228,8 @@ fn main() {
     }
     if done { break; }
   }
+
+  let tlq = TimedLineQueue::new (& mut buffered_readers_vec);
 
   // let line_readers_it = buffered_readers_vec.iter().map (|mut buffered_reader| { buffered_reader.read_to_string(); });
 
