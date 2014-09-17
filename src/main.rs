@@ -136,7 +136,8 @@ impl<'a> TimedLineQueue<'a> {
     let line_opt = lines.next ();
     match line_opt {
       Some (line) => {
-        let timed_line = TimedLine::new (&line.unwrap(), target);
+        let line = &line.unwrap();
+        let timed_line = TimedLine::new (line, target);
         self.q.push (timed_line);
       }
       None => ()
@@ -174,11 +175,11 @@ impl<'a> Iterator<TimedLine> for TimedLineQueue<'a> {
 fn main() {
   let args: Args = FlagParser::parse().unwrap_or_else(|e| e.exit());
 
-  let s = String::from_str ("Sep  2 14:25:02 8993: (main|info): --- NODE STARTED ---");
-  let tl = TimedLine::new (&s, 5u);
-  println!("TimedLine: {}", tl);
+  // let s = String::from_str ("Sep  2 14:25:02 8993: (main|info): --- NODE STARTED ---");
+  // let tl = TimedLine::new (&s, 5u);
+  // println!("TimedLine: {}", tl);
 
-  println!("Starting {}", args);
+  // println!("Starting {}", args);
 
   let file_names = args.arg_file;
   let file_count = file_names.len ();
@@ -191,7 +192,7 @@ fn main() {
   let files_out_it = paths_out_it.map (|path_out| {
     let res = File::create(&path_out);
     match res {
-      Ok(_)  => println!("Successfully opened"),
+      Ok(_)  => (),
       Err(e) => fail!("Could not open output file: {}", e)
     };
     res
