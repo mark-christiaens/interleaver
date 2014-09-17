@@ -131,7 +131,7 @@ struct TimedLineQueue<'a> {
 
 impl<'a> TimedLineQueue<'a> {
   fn fill_que (&mut self, target : uint) {
-    let mut reader = self.readers.get_mut (target);
+    let reader = self.readers.get_mut (target);
     let mut lines = reader.lines ();
     let line_opt = lines.next ();
     match line_opt {
@@ -201,53 +201,31 @@ fn main() {
 
   let mut buffered_writers_vec : Vec<BwType> = buffered_writers_it.collect ();
 
-  let mut done;
-  let mut i = 0;
-
-  loop {
-    done = true;
-    for buffered_reader in buffered_readers_vec.mut_iter () {
-      let mut lines = buffered_reader.lines ();
-      match lines.next () {
-        None => (),
-        Some (line) => {
-          let target = buffered_writers_vec.get_mut (i);
-          let res = target.write_str (line.unwrap ().as_slice ());
-          match res {
-            Ok(_) => {
-              i = (i + 1) % file_count;
-              done = false;
-            }
-            Err(e) => {
-              let ref file_name = file_names[i];
-              fail! ("Could not write to {}: {}", file_name, e);
-            }
-          }
+  let mut tlq = TimedLineQueue::new (& mut buffered_readers_vec);
+  for timed_line in tlq {
+    let target = timed_line.target;
+    {
+      let writer = buffered_writers_vec.get_mut (target);
+      let res = writer.write_line (format!("{}", timed_line).as_slice ());
+      match res {
+        Ok(_) => (),
+        Err(e) => {
+          let ref file_name = file_names[target];
+          fail! ("Could not write to {}: {}", file_name, e);
         }
-      }
+      };
     }
-    if done { break; }
+
+    for i in range (0, file_count).filter (|i| *i != target) {
+      let writer = buffered_writers_vec.get_mut (i);
+      let res = writer.write_line ("");
+      match res {
+        Ok(_) => (),
+        Err(e) => {
+          let ref file_name = file_names[i];
+          fail! ("Could not write to {}: {}", file_name, e);
+        }
+      };
+    }
   }
-
-  let tlq = TimedLineQueue::new (& mut buffered_readers_vec);
-
-  // let line_readers_it = buffered_readers_vec.iter().map (|mut buffered_reader| { buffered_reader.read_to_string(); });
-
-  // let line_iterators = readers.map (|mut reader| reader.lines ());
-
-  // let c = args.arg_FILENAMES.len();
-
-  // let mut candidates : Vec<Option<IoResult<String>>> = Vec::new ();
-
-  // for line_iterator in line_iterators.iter () {
-  //   // let line = line_iterator.next ();
-  //   // candidates.push (line);
-  // }
-
-  // let path = Path::new("p054_poker.txt");
-
-  // let mut file = BufferedReader::new(File::open(&path));
-  // for line in file.lines() {
-  //   let l = line.unwrap ();
-  // }
 }
