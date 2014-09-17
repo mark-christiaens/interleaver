@@ -66,9 +66,9 @@ struct TimedLine {
 }
 
 impl TimedLine {
-  fn new (l : &String, target : uint) -> TimedLine {
+  fn new (l : &str, target : uint) -> TimedLine {
     let re = regex! (r"^(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) +(\d+) (\d+):(\d+):(\d+) (\d+):.*$");
-    let caps = match re.captures (l.as_slice()) {
+    let caps = match re.captures (l) {
       None => fail! ("Could not analyze line: \"{}\"", l),
       Some (caps) => caps
     };
@@ -80,7 +80,7 @@ impl TimedLine {
       };
 
     TimedLine {
-      l       : l.clone (),
+      l       : String::from_str (l),
       month   : month,
       day     : day,
       hour    : hour,
@@ -136,7 +136,9 @@ impl<'a> TimedLineQueue<'a> {
     let line_opt = lines.next ();
     match line_opt {
       Some (line) => {
-        let line = &line.unwrap();
+        let line = line.unwrap();
+        let line = line.as_slice();
+        let line = line.trim_chars('\n');
         let timed_line = TimedLine::new (line, target);
         self.q.push (timed_line);
       }
@@ -188,7 +190,7 @@ fn main() {
   let mut buffered_readers_it = files_it.map (|file| BufferedReader::new (file));
   let mut buffered_readers_vec : Vec<BrType> = buffered_readers_it.collect ();
 
-  let paths_out_it = range (0u, file_names.len ()).map (|i| Path::new (i.to_string()));
+  let paths_out_it = range (0u, file_names.len ()).map (|i| Path::new (format!("{}.txt", i)));
   let files_out_it = paths_out_it.map (|path_out| {
     let res = File::create(&path_out);
     match res {
@@ -207,7 +209,7 @@ fn main() {
     let target = timed_line.target;
     {
       let writer = buffered_writers_vec.get_mut (target);
-      let res = writer.write_line (format!("{}", timed_line).as_slice ());
+      let res = writer.write_line (format!("{}", timed_line.l).as_slice ());
       match res {
         Ok(_) => (),
         Err(e) => {
