@@ -160,6 +160,29 @@ impl<'a> TimedLineQueue<'a> {
   }
 }
 
+#[test]
+fn test_priority_queue () {
+  let mut q = PriorityQueue::new ();
+
+  let s1 = String::from_str ("Sep  2 14:25:02 8993: (main|info): --- NODE STARTED ---");
+  let s2 = String::from_str ("Sep  2 14:25:02 9488: (main|info): --- NODE STARTED ---");
+
+  let tl_1 = TimedLine::new (s1.as_slice(), 5u);
+  let tl_2 = TimedLine::new (s2.as_slice(), 5u);
+
+  q.push (s1.clone ());
+  q.push (s2.clone ());
+
+  assert_eq! (q.pop(), Some(s2.clone ()));
+  assert_eq! (q.pop(), Some(s1.clone ()));
+
+  q.push (s2.clone ());
+  q.push (s1.clone ());
+
+  assert_eq! (q.pop(), Some(s2.clone ()));
+  assert_eq! (q.pop(), Some(s1.clone ()));
+}
+
 impl<'a> Iterator<TimedLine> for TimedLineQueue<'a> {
   fn next (&mut self) -> Option<TimedLine> {
     let timed_line_opt = self.q.pop ();
