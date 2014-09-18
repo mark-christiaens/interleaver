@@ -94,27 +94,35 @@ impl TimedLine {
 
 impl Ord for TimedLine {
   fn cmp(&self, other: &TimedLine) -> Ordering {
-    let month_cmp = self.month.cmp (&other.month);
-    if month_cmp == Equal {
-      let day_cmp = self.day.cmp (&other.day);
-      if day_cmp == Equal {
-        let hour_cmp = self.hour.cmp (&other.hour);
-        if hour_cmp == Equal {
-          let minute_cmp = self.minute.cmp (&other.minute);
-          if minute_cmp == Equal {
-            let second_cmp = self.second.cmp (&other.second);
-            if second_cmp == Equal {
-              self.usecond.cmp (&other.usecond)
+    let res = {
+      let month_cmp = self.month.cmp (&other.month);
+      if month_cmp == Equal {
+        let day_cmp = self.day.cmp (&other.day);
+        if day_cmp == Equal {
+          let hour_cmp = self.hour.cmp (&other.hour);
+          if hour_cmp == Equal {
+            let minute_cmp = self.minute.cmp (&other.minute);
+            if minute_cmp == Equal {
+              let second_cmp = self.second.cmp (&other.second);
+              if second_cmp == Equal {
+                self.usecond.cmp (&other.usecond)
+              }
+              else { second_cmp }
             }
-            else { second_cmp }
+            else { minute_cmp }
           }
-          else { minute_cmp }
+          else { hour_cmp }
         }
-        else { hour_cmp }
+        else { day_cmp }
       }
-      else { day_cmp }
+      else { month_cmp }
+    };
+
+    match res {
+      Greater => Less,
+      Equal => Equal,
+      Less => Greater
     }
-    else { month_cmp }
   }
 }
 
