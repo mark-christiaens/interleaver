@@ -174,14 +174,23 @@ impl<'a> Iterator<TimedLine> for TimedLineQueue<'a> {
   }
 }
 
+#[test]
+fn test_timed_line_ordering () {
+  let s1 = String::from_str ("Sep  2 14:25:02 8993: (main|info): --- NODE STARTED ---");
+  let s2 = String::from_str ("Sep  2 14:25:02 9488: (main|info): --- NODE STARTED ---");
+
+
+  let tl_1 = TimedLine::new (s1.as_slice(), 5u);
+  let tl_2 = TimedLine::new (s2.as_slice(), 5u);
+
+  assert! (tl_1.cmp (&tl_2) == Less);
+  assert! (tl_2.cmp (&tl_1) == Greater);
+  assert! (tl_1.cmp (&tl_1) == Equal);
+  assert! (tl_2.cmp (&tl_2) == Equal);
+}
+
 fn main() {
   let args: Args = FlagParser::parse().unwrap_or_else(|e| e.exit());
-
-  // let s = String::from_str ("Sep  2 14:25:02 8993: (main|info): --- NODE STARTED ---");
-  // let tl = TimedLine::new (&s, 5u);
-  // println!("TimedLine: {}", tl);
-
-  // println!("Starting {}", args);
 
   let file_names = args.arg_file;
   let file_count = file_names.len ();
