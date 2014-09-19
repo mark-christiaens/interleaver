@@ -155,12 +155,14 @@ impl<'a> TimedLineQueue<'a> {
   }
 
   fn new (readers : & 'a mut Vec<BrType>) -> TimedLineQueue {
+    let readers_count = readers.len ();
+
     let mut res = TimedLineQueue {
       q : PriorityQueue::new (),
       readers : readers
     };
 
-    for (i, _) in res.readers.mut_iter().enumerate () {
+    for i in range (0, readers_count) {
       res.fill_que(i);
     }
 
