@@ -94,29 +94,24 @@ impl TimedLine {
 
 impl Ord for TimedLine {
   fn cmp(&self, other: &TimedLine) -> Ordering {
-    let res = {
-      let month_cmp = self.month.cmp (&other.month);
-      if month_cmp == Equal {
-        let day_cmp = self.day.cmp (&other.day);
-        if day_cmp == Equal {
-          let hour_cmp = self.hour.cmp (&other.hour);
-          if hour_cmp == Equal {
-            let minute_cmp = self.minute.cmp (&other.minute);
-            if minute_cmp == Equal {
-              let second_cmp = self.second.cmp (&other.second);
-              if second_cmp == Equal {
-                self.usecond.cmp (&other.usecond)
-              }
-              else { second_cmp }
-            }
-            else { minute_cmp }
-          }
-          else { hour_cmp }
-        }
-        else { day_cmp }
+    let month_comparator = |tl1: &TimedLine, tl2: &TimedLine| { tl1.month.cmp (&tl2.month) };
+    let day_comparator = |tl1: &TimedLine, tl2: &TimedLine| { tl1.day.cmp (&tl2.day) };
+    let hour_comparator = |tl1: &TimedLine, tl2: &TimedLine| { tl1.hour.cmp (&tl2.hour) };
+    let minute_comparator = |tl1: &TimedLine, tl2: &TimedLine| { tl1.minute.cmp (&tl2.minute) };
+    let second_comparator = |tl1: &TimedLine, tl2: &TimedLine| { tl1.second.cmp (&tl2.second) };
+    let usecond_comparator = |tl1: &TimedLine, tl2: &TimedLine| { tl1.usecond.cmp (&tl2.usecond) };
+
+    let mut comparators = vec! (month_comparator, day_comparator, hour_comparator, minute_comparator, second_comparator, usecond_comparator);
+
+    let mut res = Equal;
+
+    for comparator in comparators.iter_mut() {
+      let comparison = (*comparator) (self, other);
+      if comparison != Equal {
+        res = comparison;
+        break;
       }
-      else { month_cmp }
-    };
+    }
 
     match res {
       Greater => Less,
@@ -177,9 +172,6 @@ fn test_priority_queue () {
   let s1 = String::from_str ("Sep  2 14:25:02 8993: (main|info): --- NODE STARTED ---");
   let s2 = String::from_str ("Sep  2 14:25:02 9488: (main|info): --- NODE STARTED ---");
 
-  let tl_1 = TimedLine::new (s1.as_slice(), 5u);
-  let tl_2 = TimedLine::new (s2.as_slice(), 5u);
-
   q.push (s1.clone ());
   q.push (s2.clone ());
 
@@ -216,8 +208,8 @@ fn test_timed_line_ordering () {
   let tl_1 = TimedLine::new (s1.as_slice(), 5u);
   let tl_2 = TimedLine::new (s2.as_slice(), 5u);
 
-  assert! (tl_1.cmp (&tl_2) == Less);
-  assert! (tl_2.cmp (&tl_1) == Greater);
+  assert! (tl_1.cmp (&tl_2) == Greater);
+  assert! (tl_2.cmp (&tl_1) == Less);
   assert! (tl_1.cmp (&tl_1) == Equal);
   assert! (tl_2.cmp (&tl_2) == Equal);
 }
