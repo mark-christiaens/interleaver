@@ -15,6 +15,7 @@ use core::result::Result;
 use collections::string::String;
 use collections::vec::Vec;
 use collections::PriorityQueue;
+use std::cmp::lexical_ordering;
 
 // Interleaver takes N files (e.g., i_1.txt ... i_N.txt) and transforms them into N output files
 // named o_1.txt ... o_N.txt.  The lines of the input files must be prefixed with time stamps.  The
@@ -94,30 +95,16 @@ impl TimedLine {
 
 impl Ord for TimedLine {
   fn cmp(&self, other: &TimedLine) -> Ordering {
-    let month_comparator = |tl1: &TimedLine, tl2: &TimedLine| { tl1.month.cmp (&tl2.month) };
-    let day_comparator = |tl1: &TimedLine, tl2: &TimedLine| { tl1.day.cmp (&tl2.day) };
-    let hour_comparator = |tl1: &TimedLine, tl2: &TimedLine| { tl1.hour.cmp (&tl2.hour) };
-    let minute_comparator = |tl1: &TimedLine, tl2: &TimedLine| { tl1.minute.cmp (&tl2.minute) };
-    let second_comparator = |tl1: &TimedLine, tl2: &TimedLine| { tl1.second.cmp (&tl2.second) };
-    let usecond_comparator = |tl1: &TimedLine, tl2: &TimedLine| { tl1.usecond.cmp (&tl2.usecond) };
+    let month_cmp = other.month.cmp (&self.month);
+    let day_cmp = other.day.cmp (&self.day);
+    let hour_cmp =  other.hour.cmp (&self.hour);
+    let minute_cmp = other.minute.cmp (&self.minute);
+    let second_cmp = other.second.cmp (&self.second);
+    let usecond_cmp =  other.usecond.cmp (&self.usecond);
 
-    let mut comparators = vec! (month_comparator, day_comparator, hour_comparator, minute_comparator, second_comparator, usecond_comparator);
+    let cmps = vec! (month_cmp, day_cmp, hour_cmp, minute_cmp, second_cmp, usecond_cmp);
 
-    let mut res = Equal;
-
-    for comparator in comparators.iter_mut() {
-      let comparison = (*comparator) (self, other);
-      if comparison != Equal {
-        res = comparison;
-        break;
-      }
-    }
-
-    match res {
-      Greater => Less,
-      Equal => Equal,
-      Less => Greater
-    }
+    cmps.iter().fold (Equal, |acc, cmp| lexical_ordering(acc, *cmp))
   }
 }
 
